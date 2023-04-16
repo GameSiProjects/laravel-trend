@@ -67,6 +67,16 @@ class Trend
         return $this->interval('day');
     }
 
+    public function perDayOfWeek(): self
+    {
+        return $this->interval('dayOfWeek');
+    }
+
+    public function perWeek(): self
+    {
+        return $this->interval('week');
+    }
+
     public function perMonth(): self
     {
         return $this->interval('month');
@@ -155,11 +165,12 @@ class Trend
 
     protected function getDatePeriod(): Collection
     {
+        $intervalValue = $this->interval == 'dayOfWeek' ? 'week' : $this->interval;
         return collect(
             CarbonPeriod::between(
                 $this->start,
                 $this->end,
-            )->interval("1 {$this->interval}")
+            )->interval("1 {$intervalValue}")
         );
     }
 
@@ -183,6 +194,8 @@ class Trend
             'day' => 'Y-m-d',
             'month' => 'Y-m',
             'year' => 'Y',
+            'week' => 'Y W',
+            'dayOfWeek' => 'l',
             default => throw new Error('Invalid interval.'),
         };
     }

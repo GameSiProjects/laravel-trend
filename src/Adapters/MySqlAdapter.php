@@ -14,6 +14,8 @@ class MySqlAdapter extends AbstractAdapter
             'day' => '%Y-%m-%d',
             'month' => '%Y-%m',
             'year' => '%Y',
+            'week' => '%x %v',
+            'dayOfWeek' => '%W',
             default => throw new Error('Invalid interval.'),
         };
 
